@@ -3,10 +3,12 @@ var bodyParser = require ('body-parser')
 var app = express();
 
 app.get('/projekt', function (req, res {
-  // Liste wird ausgegeben 
+res.send(jsonObject);    //Serverseitige Ausgabe eines json-Objektes
   )});
+  
 app.post('/projekt', function (req, res {
-  res.send(jsonObject);    //Serverseitige Ausgabe eines json-Objektes
+  connection.connect();
+  var projektname = req.body.name;
   )});
   
 var jsonParser = bodyParser.json();
