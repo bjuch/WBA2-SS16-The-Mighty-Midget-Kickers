@@ -1,6 +1,6 @@
 var bodyParser = require ('body-parser')
 
-var app = expression();
+var app = express();
 
 app.get('/projekt', function (req, res {
   // Liste wird ausgegeben 
