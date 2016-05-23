@@ -12,7 +12,7 @@ app.post('/projekt', function (req, res {
   //Tabelle wird erstellt
   }));
   
-app.set('/projekt/projektname', function (req, res {
+app.put('/projekt/projektname', function (req, res {
   //Veränderung des bestehenden Projekts
   }));
   
