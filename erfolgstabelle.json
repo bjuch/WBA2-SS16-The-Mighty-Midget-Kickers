@@ -1,0 +1,22 @@
+{
+      "erfolgstabelle":[
+           {
+                "name":"rechnen",
+                "beschreibung":"fünf mal sieben",
+                "anforderung":"kopfrechnen",
+                "vorhanden?":"ja"
+            },
+            {
+                "name":"diktat",
+                "beschreibung":"sätze müssen abgetippt werden",
+                "anforderung":"kenntnisse von rechtschreibung und satzbau",
+                "vorhanden?":"nein"
+            },
+            {
+                "name":"geschichte",
+                "beschreibung":"jahresdaten zu historischen ereignissen werden genannt",
+                "anforderung":"historisches allgemeinwissen",
+                "vorhanden?":"ja"
+            }
+      ]
+  }
