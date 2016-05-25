@@ -22,7 +22,7 @@ app.post('/projekt',jsonParser , function (req, res) {
   else{
   res.end(data.toString());
   }
-  }));
+  });
   
 app.put('/projekt/projektname', function (req, res {
   //Veränderung des bestehenden Projekts
