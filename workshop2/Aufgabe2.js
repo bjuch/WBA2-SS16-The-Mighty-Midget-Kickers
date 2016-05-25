@@ -11,7 +11,7 @@ app.get('/projekt', function (req, res {
 res.send(jsonObject);    //Serverseitige Ausgabe eines json-Objektes
   }));
   
-app.post('/projekt',jsonParser , function (req, res) {
+app.post('/projekt',jsonParser,function (req, res) {
   connection.connect();
   var projektname = req.body.name;
   
