@@ -19,8 +19,9 @@ app.post('/projekt', function (req, res {
   //Tabelle wird erstellt
   }));
   
-app.put('/projekt/projektname', function (req, res {
-  //Veränderung des bestehenden Projekts
+app.get('/projekt/', jsonParser, function (req, res {
+  var objekt = JSON.parse(erfolgstabelle.json)
+  document.write('erfolgstabelle[2].name')
   }));
   
 
