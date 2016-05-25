@@ -8,8 +8,10 @@ app.use(jsonParser)        //Serverseitiges Parsen von json
 
 
 app.get('/projekt', function (req, res {
-res.send(jsonObject);    //Serverseitige Ausgabe eines json-Objektes
-  }));
+  res.write("Beispielhafte Ausgabe eines Teils des Json-Objekts erfolgstabelle");
+  document.write('Name einer Aufgabe: 'erfolgstabelle[1].name]);
+  res.end();
+}));
   
 app.post('/projekt', function (req, res {
   connection.connect();
