@@ -20,7 +20,7 @@ app.post('/projekt',jsonParser,function (req, res) {
     
     res.end(erfolgstabelle.toString());
   
-  
+
                    });
 
 app.get('/projekt',jsonParser, function (req, res){ 
