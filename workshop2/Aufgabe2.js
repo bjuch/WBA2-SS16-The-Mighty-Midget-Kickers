@@ -5,6 +5,12 @@ var jsonParser = bodyParser.json();
 
 app.use(jsonParser);       //Serverseitiges Parsen von json
 
+
+app.get('/projekt/', jsonParser, function (req, res) {
+  var objekt = JSON.parse(erfolgstabelle.json);
+  document.write(erfolgstabelle[2].name);
+  });
+
   
 app.post('/projekt',jsonParser,function (req, res) {
   connection.connect();
@@ -17,26 +23,14 @@ app.post('/projekt',jsonParser,function (req, res) {
   else{
   res.end(data.toString());
   }
+  }
   });
   
 app.get('/projekt', function (req, res) {
   res.write("Beispielhafte Ausgabe eines Teils des Json-Objekts erfolgstabelle");
-  document.write('Name einer Aufgabe: 'erfolgstabelle[1].name);
+  document.write('Name einer Aufgabe: ', erfolgstabelle[1].name);
   res.end();
 });
-  
-app.get('/projekt/', jsonParser, function (req, res) {
-  var objekt = JSON.parse(erfolgstabelle.json)
-  document.write('erfolgstabelle[2].name')
-  });
-  
-
-
-
-
-
-
-
 
 
 
