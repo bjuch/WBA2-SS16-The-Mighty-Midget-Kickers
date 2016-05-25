@@ -2,41 +2,33 @@ var express = require('express');
 var bodyParser = require ('body-parser');
 var app = express();
 var jsonParser = bodyParser.json();
-app.use(jsonParser)        //Serverseitiges Parsen von json
+app.use(jsonParser);       //Serverseitiges Parsen von json
 
 
 
 
-app.get('/projekt', function (req, res {
-res.send(jsonObject);    //Serverseitige Ausgabe eines json-Objektes
-  }));
-  
+app.get('/projekt/', jsonParser, function (req, res) {
+  var objekt = JSON.parse(erfolgstabelle.json)
+  document.write(erfolgstabelle[2].name)
+  });
+
+
 app.post('/projekt',jsonParser,function (req, res) {
   connection.connect();
   var projektname = req.body.name;
+  var objekt = JSON.parse(erfolgstabelle.json)
+    
+    res.end(erfolgstabelle.toString());
   
-  express.readFile('erfolgstabelle.json', function (err, data)){
-  if (err){
-    console.log(err);
-  }
-  else{
-  res.end(data.toString());
-  }
-  });
   
-app.put('/projekt/projektname', function (req, res {
-  //Veränderung des bestehenden Projekts
-  }));
-  
+                   });
 
-
-
-
-
-
-
-
-
-
+app.get('/projekt',jsonParser, function (req, res){ 
+ var objekt = JSON.parse(erfolgstabelle.json);
+    
+    res.write("Beispielhafte Ausgabe eines Teils des Json-Objekts erfolgstabelle");
+  document.write('Name einer Aufgabe: ',erfolgstabelle[1].name);
+  res.end();
+});
 
 app.listen(3000);
