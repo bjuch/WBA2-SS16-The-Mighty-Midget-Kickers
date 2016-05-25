@@ -9,7 +9,7 @@ app.use(jsonParser)        //Serverseitiges Parsen von json
 
 app.get('/projekt', function (req, res) {
   res.write("Beispielhafte Ausgabe eines Teils des Json-Objekts erfolgstabelle");
-  document.write('Name einer Aufgabe: 'erfolgstabelle[1].name]);
+  document.write('Name einer Aufgabe: 'erfolgstabelle[1].name);
   res.end();
 });
   
