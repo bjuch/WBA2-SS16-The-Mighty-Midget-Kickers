@@ -13,14 +13,22 @@ app.get('/projekt', function (req, res {
   res.end();
 }));
   
-app.post('/projekt', function (req, res {
+app.post('/projekt',jsonParser,function (req, res) {
   connection.connect();
   var projektname = req.body.name;
-  //Tabelle wird erstellt
-  }));
   
-app.put('/projekt/projektname', function (req, res {
-  //Veränderung des bestehenden Projekts
+  express.readFile('erfolgstabelle.json', function (err, data)){
+  if (err){
+    console.log(err);
+  }
+  else{
+  res.end(data.toString());
+  }
+  });
+  
+app.get('/projekt/', jsonParser, function (req, res {
+  var objekt = JSON.parse(erfolgstabelle.json)
+  document.write('erfolgstabelle[2].name')
   }));
   
 
