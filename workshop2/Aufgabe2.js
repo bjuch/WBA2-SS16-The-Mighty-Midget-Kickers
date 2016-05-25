@@ -11,8 +11,8 @@ app.get('/projekt', function (req, res {
 res.send(jsonObject);    //Serverseitige Ausgabe eines json-Objektes
   }));
   
-app.post('/projekt',jsonParser, function (req, res {
- // connection.connect();
+app.post('/projekt',/*jsonParser*/ , function (req, res {
+  connection.connect();
   var projektname = req.body.name;
   
   express.readFile('erfolgstabelle.json', function (err, data)){
