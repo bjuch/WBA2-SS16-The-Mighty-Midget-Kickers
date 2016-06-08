@@ -1,0 +1,26 @@
+{
+      "Projekt": [
+           {
+                "Name":"rechnen",
+                "Beschreibung":"fünf mal sieben",
+                "Anforderung":"kopfrechnen",
+                "Vorhanden":"ja",
+               "Notitzen": "blaaaaaaaa"
+            },
+            {
+                "Name":"diktat",
+                "Beschreibung":"sätze müssen abgetippt werden",
+                "Anforderung":"kenntnisse von rechtschreibung und satzbau",
+                "Vorhanden":"nein",
+                "Notitzen": "blaaaaaaaa"
+            },
+            {
+                "Name":"geschichte",
+                "Beschreibung":"jahresdaten zu historischen ereignissen werden genannt",
+                "Anforderung":"historisches allgemeinwissen",
+                "Vorhanden":"ja",
+                "Notitzen": "blaaaaaaaa"
+            }
+      ]
+  
+}
