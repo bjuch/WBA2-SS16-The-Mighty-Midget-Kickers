@@ -1,0 +1,25 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "wba2 projekt",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "npm": "^2.15.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juch Mathesdorf Werner",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjuch/WBA2SS16JuchMathesdorfWerner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bjuch/WBA2SS16JuchMathesdorfWerner/issues"
+  },
+  "homepage": "https://github.com/bjuch/WBA2SS16JuchMathesdorfWerner#readme"
+}
