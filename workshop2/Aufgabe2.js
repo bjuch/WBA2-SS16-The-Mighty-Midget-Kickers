@@ -67,9 +67,23 @@ app.post('/user', function(req,res){
         });
     });
 
+app.get('/user/:id/Projekt',function(req,res){
+   client.existsts('user:'+req.params.id,function(err,rep){
+       if(rep == 1)
+       {
+            client.hgetall('Projekt:').send(rep);    
+       }
+   }) ;
+});
 
-
-
+app.get('/user/:id/Projekt',function(req,res){
+   client.existsts('user:'+req.params.id,function(err,rep){
+       if(rep == 1)
+       {
+            client.hgetall('Projekt:').send(rep);    
+       }
+   }) ;
+});
 /*
 
 
