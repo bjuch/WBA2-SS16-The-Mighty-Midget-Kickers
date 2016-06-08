@@ -67,7 +67,7 @@ app.post('/user', function(req,res){
         });
     });
 
-app.get('/user/:id/Projekt',function(req,res){
+app.post('/user/:id/Projekt',function(req,res){
    client.existsts('user:'+req.params.id,function(err,rep){
        if(rep == 1)
        {
