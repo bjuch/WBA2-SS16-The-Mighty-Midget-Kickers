@@ -8,19 +8,23 @@ var client = redis.createClient();
 client.on('connect',function(){
     console.log('connected');
 });
-app.use(jsonParser);
+
 
 app.post('/user', function(req,res){
              
             var newUser = req.body;
-             client.incr('id:user', function(err,rep){
+            client.incr('id:user', function(err,rep){
             newUser.id = rep;
         
             client.set('user:' + newUser.id, JSON.stringify(newUser), function(err,rep)
-            {
-             res.json(newUser);      
-                   });
+                {
+                    res.json(newUser);      
+                });
              });
+             if(err) {
+                console.log(err);
+                res.status(404).end("Datei nich gefunden");
+            }
         });
     
     app.get('/user/:id' , function(req,res){
@@ -33,6 +37,10 @@ app.post('/user', function(req,res){
             else {
                 res.status(404).type('text').send('User not found');
             }
+            if(err) {
+                console.log(err);
+                res.status(404).end("Datei nich gefunden");
+            }
         });
     });
 
@@ -41,10 +49,14 @@ app.post('/user', function(req,res){
         client.del('user:'+req.params.id,function(err,rep){
             if(rep == 1)
                 {
-                    res.status(200).type('text').send('User deleted')
+                    res.status(200).type('text').send('User deleted');
                 }
-            else {
-                res.status(404).type('text').send('User not found');
+                else {
+                    res.status(404).type('text').send('User not found');
+                }
+                if(err) {
+                console.log(err);
+                res.status(404).end("Datei nich gefunden");
             }
         });
     });
@@ -60,55 +72,43 @@ app.post('/user', function(req,res){
                         res.json(updatedUser);
                     });
                 }
-            else
-                {
+                else{
                     res.status(404).type('text').send('User not found');
                 }
+                if(err) {
+                console.log(err);
+                res.status(404).end("Datei nich gefunden");
+            }
+        });
+    });
+    
+    app.post('/user/:id/Projekt',function(req,res){
+        client.existsts('user:'+req.params.id,function(err,rep){
+            if(rep == 1)
+            {
+                client.hgetall('Projekt:').send(rep);    
+            }
+            if(err) {
+                console.log(err);
+                res.status(404).end("Datei nich gefunden");
+            }
         });
     });
 
-app.post('/user/:id/Projekt',function(req,res){
-   client.existsts('user:'+req.params.id,function(err,rep){
-       if(rep == 1)
-       {
-            client.hgetall('Projekt:').send(rep);    
-       }
-   }) ;
-});
+    app.get('/user/:id/Projekt',function(req,res){
+        client.existsts('user:'+req.params.id,function(err,rep){
+            if(rep == 1)
+            {
+                client.hgetall('Projekt:').send(rep);    
+            }
+            else{
+                res.status(404).type('text').send('User not found');
+            }
+            if(err) {
+                console.log(err);
+                res.status(404).end("Datei nich gefunden");
+            }
+        });
+    });
 
-app.get('/user/:id/Projekt',function(req,res){
-   client.existsts('user:'+req.params.id,function(err,rep){
-       if(rep == 1)
-       {
-            client.hgetall('Projekt:').send(rep);    
-       }
-   }) ;
-});
-/*
-
-
-app.get('/projekt/', jsonParser, function (req, res) {
-  var objekt = JSON.parse(erfolgstabelle.json)
-  document.write(erfolgstabelle[2].name)
-  });
-
-
-app.post('/projekt',jsonParser,function (req, res) {
-  connection.connect();
-  var projektname = req.body.name;
-  var objekt = JSON.parse(erfolgstabelle.json)
-    
-    res.end(erfolgstabelle.toString());
-  
-  
-                   });
-
-app.get('/projekt',jsonParser, function (req, res){ 
- var objekt = JSON.parse(erfolgstabelle.json);
-    
-    res.write("Beispielhafte Ausgabe eines Teils des Json-Objekts erfolgstabelle");
-  document.write('Name einer Aufgabe: ',erfolgstabelle[1].name);
-  res.end();
-});
-*/
 app.listen(3000);
