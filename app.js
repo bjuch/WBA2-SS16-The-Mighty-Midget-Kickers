@@ -206,23 +206,6 @@ app.put('/user/:id/Strichliste', function (req, res) {
 
 //USER TEIL
 
-        app.put('/user/Projekt', jsonParser, function (req, res) {
-
-
-            fs.readFile('Projekt.json', function (err, data) {
-
-                var obj = JSON.parse(data.toString())
-                var Tabelle = obj.Projekt;
-
-                Tabelle.push(req.body);
-                res.type('plain').send('Added!');
-
-
-            });
-
-        });
-
-
 app.get('/user',function(req,res){
 	db.keys('user:*',function(err,rep){
 		
