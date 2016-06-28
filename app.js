@@ -287,6 +287,65 @@ app.get('/user/:id',function(req,res){
 });
 
 /*******************************************************************/
+
+
+//Kommentare
+
+app.post('user/:id/projekt/:projektid/kommentar',function(req,res){
+    var newComment = req.body;
+             client.incr('comment', function(err,rep){
+            newComment.id = rep;
+        
+            client.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function(err,rep)
+            {
+             res.json(newComment);      
+                   });
+             });
+        });
+
+app.get('user/:id/projekt/:projektid/kommentar',function(req,res){
+    if(rep == 1)
+       {
+            client.hgetall('Alle Kommentare:').send(rep);    
+       }
+   }) ;
+});
+
+
+app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
+    client.exists('user:'+req.params.id, function(err,rep){
+            if(rep == 1)
+                {
+                    var updatedComment = req.body;
+                    updatedComment.id = req.params.id;
+                    
+                    client.set('user:'+req.params.id, JSON.stringify(updatedComment),function(err,rep){
+                        res.json(updatedComment);
+                    });
+                }
+            else
+                {
+                    res.status(404).type('text').send('Comment not found');
+                }
+        });
+    });
+
+app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
+    client.existsts('user:'+req.params.id,function(err,rep){
+        comment.del('comment:'+req.params.id,function(err,rep){
+            if(rep == 1)
+                {
+                    res.status(200).type('text').send('Comment deleted')
+                }
+            else {
+                res.status(404).type('text').send('Comment not found');
+            }
+        });
+    });
+    
+    
+/*******************************************************************/
+
  
 //ENDE
 
