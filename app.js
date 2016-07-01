@@ -34,9 +34,59 @@ app.post("/user/Projekt/", function (req, res) {
 
 });
 
+var express = require('express');
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
+var fs = require("fs");
+var redis = require('redis');
+var ejs = require("ejs");
+var http = require("http");
+
+var rest = express();
+
+var app = express();
+
+
+var db = redis.createClient();
+app.use(bodyParser.json());
+
+
+
+
+app.post("/user/Projekt/", function (req, res) {
+
+
+
+
+    var newProjekt = req.body;
+    var acceptedTypes = req.accepts(['json']);
+
+    db.incr("user/id:Projekt", function (err, rep) {
+        newProjekt.id = rep;
+
+        db.set("Projekt: " + newProjekt.id, JSON.stringify(newProjekt), function (err, rep) {
+
+            switch (acceptedTypes) {
+            case "json":
+
+
+                res.json(newProjekt);
+
+                break;
+
+            default:
+                res.status(406).type.end();
+            }
+        });
+
+    });
+
+
+});
+
 app.get("/user/Projekt/:id", function (req, res) {
 
-    db.get("Projekt:" + req.params.id, function (err, rep) {
+    db.get("Projekt: " + req.params.id, function (err, rep) {
 
         if (rep) {
             res.type("json").send(rep);
@@ -52,7 +102,7 @@ app.put("/user/Projekt/:id", function (req, res) {
         if (rep == 1) {
             var updatedProjekt = req.body;
             updatedProjekt.id = req.params.id;
-            db.set(" Projekt: " + req.params.id, JSON.stringify(updatedProjekt), function (err, rep) {
+            db.set("Projekt: " + req.params.id, JSON.stringify(updatedProjekt), function (err, rep) {
                 res.json(updatedProjekt);
             });
         } else {
@@ -62,8 +112,9 @@ app.put("/user/Projekt/:id", function (req, res) {
 });
 
 app.delete("/user/Projekt/:id", function (req, res) {
-    db.del("Projekt" + req.params.id, function (err, rep) {
+    db.del("Projekt: " + req.params.id, function (err, rep) {
         if (rep == 1) {
+
             res.status(200).type("text").send("gelöscht");
         } else {
             res.status(404).type("text").send("Das Projekt mit der ID" + req.params.id + " wurde nicht gefunden")
@@ -82,20 +133,26 @@ app.get("/user/Projekt", function (req, res) {
             res.json(Projekt);
             return;
         }
-        db.mget(rep, function (err, rep) {
+        if (rep) {
+            db.mget(rep, function (err, rep) {
 
-            rep.forEach(function (val) {
-                Projekt.push(JSON.parse(val));
+                rep.forEach(function (val) {
+                    Projekt.push(JSON.parse(val));
+                });
+
+                Projekt = Projekt.map(function (Projekt) {
+                    return {
+                        id: Projekt.id,
+                        titel: Projekt.titel
+                    };
+                });
+                res.json(Projekt);
             });
 
-            Projekt = Projekt.map(function (Projekt) {
-                return {
-                    id: Projekt.id,
-                    titel: Projekt.titel
-                };
-            });
-            res.json(Projekt);
-        });
+        } else {
+            res.status(206).type("text").send("Die Projekte  wurde nicht gefunden")
+        }
+
     });
 });
 
@@ -238,7 +295,7 @@ app.get('/user', function (req, res) {
 
 app.put('/user/:id', function (req, res) {
     db.exists('user:' + req.params.id, function (err, rep) {
-        if (req == 1) {
+        if (rep == 1) {
             var updatedUser = req.body;
             updatedUser.id = req.params.id;
             db.set('user:' + req.params.id, JSON.stringify(updatedUser), function (err, rep) {
@@ -281,7 +338,7 @@ app.get('/user/:id', function (req, res) {
         if (rep) {
             res.type('json').send(rep);
         } else {
-            res.status(404).type('text').send('User does not exist');
+            res.status(404).type('text').send('User does not exist')
         }
     });
 
@@ -296,19 +353,20 @@ app.get('/user/:id', function (req, res) {
 
 
 
-app.post('/user/Projekt/Kommentar', function (req, res) {
+app.post('user/Projekt/Kommentar', function (req, res) {
     var newComment = req.body;
-    db.incr('user/Projekt/kommentarid:Kommentar', function (err, rep) {
-        newComment.kommentarid = rep;
-        db.set('Kommentar:' + newComment.kommentarid, JSON.stringify(newComment), function (err, rep) {
+    db.incr('user/Projekt/id:Kommentar', function (err, rep) {
+        newComment.id = rep;
+
+        db.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function (err, rep) {
             res.json(newComment);
         });
     });
 });
 
-app.get('/user/Projekt/Kommentar', function (req, res) {
+app.get('user/:id/projekt/:projektid/kommentar', function (req, res) {
 
-    db.get('user:'+req.params.id+':projekt:'+req.params.projektid+':kommentar:' + req.params.kommentarid, function (err, rep) {
+    db.get('user/:id/projekt/:projektid/kommentar/' + req.params.id, function (err, rep) {
 
         if (rep) {
             res.type('json').send(rep);
