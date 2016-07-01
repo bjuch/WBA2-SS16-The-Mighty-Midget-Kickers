@@ -311,7 +311,7 @@ app.get('user/:id/projekt/:projektid/kommentar',function(req,res){
 			res.type('json').send(rep);
 		}
 		else{
-			res.status(404).type('text').send('User does not exist')
+			res.status(404).type('text').send('No comments available')
 		}
 	});
 });
