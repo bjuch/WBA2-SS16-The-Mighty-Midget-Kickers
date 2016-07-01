@@ -317,50 +317,50 @@ app.get('/user/:id', function (req, res) {
 
 
 
-app.post('user/Projekt/Kommentar', function (req, res) {
-    var newComment = req.body;
-    db.incr('user/Projekt/id:Kommentar', function (err, rep) {
-        newComment.id = rep;
 
-        db.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function (err, rep) {
+app.post('/user/Projekt/Kommentar/', function (req, res) {
+    var newComment = req.body;
+    db.incr('/user/Projekt/kommentarid:Kommentar', function (err, rep) {
+        newComment.kommentarid = rep;
+        db.set('Kommentar:' + newComment.kommentarid, JSON.stringify(newComment), function (err, rep) {
             res.json(newComment);
         });
     });
 });
 
-app.get('user/:id/projekt/:projektid/kommentar', function (req, res) {
+app.get('/user/Projekt/Kommentar/:kommentarid', function (req, res) {
 
-    db.get('user/:id/projekt/:projektid/kommentar/' + req.params.id, function (err, rep) {
+    db.get('Kommentar:' + req.params.kommentarid, function (err, rep) {
 
         if (rep) {
             res.type('json').send(rep);
         } else {
-            res.status(404).type('text').send('No comments available');
+            res.status(404).type('text').send('No comment available');
         }
     });
 });
 
 
-app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req, res) {
-    db.exists('user:' + req.params.id, function (err, rep) {
+app.put('/user/Projekt/Kommentar/:id', function (req, res) {
+    db.exists('Kommentar:' + req.params.id, function (err, rep) {
         if (rep == 1) {
-            var updatedComment = req.body;
-            updatedComment.id = req.params.id;
-
-            db.set('user:' + req.params.id, JSON.stringify(updatedComment), function (err, rep) {
-                res.json(updatedComment);
+            var updatedKommentar = req.body;
+            updatedKommentar.id = req.params.id;
+            db.set("Kommentar:" + req.params.id, JSON.stringify(updatedKommentar), function (err, rep) {
+                res.json(updatedKommentar);
             });
         } else {
-            res.status(404).type('text').send('Comment not found');
+            res.status(404).type("text").send("Der Kommentar mit der ID" + req.params.id + " wurde nicht gefunden")
         }
     });
 });
 
 
 
-app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req, res) {
-    db.existsts('user:' + req.params.id, function (err, rep) {
-        db.del('/user/:id/projekt/:projektid/kommentar/' + req.params.id, function (err, rep) {
+
+app.delete('/user/Projekt/Kommentar/:id', function (req, res) {
+    db.exists('/user/Projekt/Kommentar/:id' + req.params.id, function (err, rep) {
+        db.del('Kommentar:' + req.params.id, function (err, rep) {
             if (rep == 1) {
                 res.status(200).type('text').send('Comment deleted');
             } else {
@@ -370,6 +370,7 @@ app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req,
         });
     });
 });
+
 
 
 /*******************************************************************/
