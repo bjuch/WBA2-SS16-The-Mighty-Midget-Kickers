@@ -17,24 +17,26 @@ app.use(bodyParser.json());
 
 
 
-app.post("/user/Projekt/", function (req, res) {
-
-
-
-
-    var newProjekt = req.body;
-
-    db.incr("user/id:Projekt", function (err, rep) {
-        newProjekt.projektid = rep;
-        db.set("Projekt: " + newProjekt.projektid, JSON.stringify(newProjekt), function (err, rep) {
-            res.json(newProjekt);
-        });
-    });
-
+app.post("user/:id/Projekt/", function (req, res) {
+    db.exists('user/'+req.params.id,function(err,rep){
+        if(rep){
+            var newProjekt = req.body;
+    
+            db.incr('user/'+req.params.id+'/projektid:Projekt', function (err, rep) {
+                newProjekt.projektid = rep;
+                db.set("Projekt: " + newProjekt.projektid, JSON.stringify(newProjekt), function (err, rep) {
+                    res.json(newProjekt);
+                });
+            });
+        }
+        else{
+            res.status(404).type('text').send("User not found");
+        }
+    }
 
 });
 
-app.get("/user/Projekt/:id", function (req, res) {
+app.get("/user/:id/Projekt/:projektid", function (req, res) {
 
     db.get("Projekt:" + req.params.projektid, function (err, rep) {
 
@@ -296,11 +298,11 @@ app.get('/user/:id', function (req, res) {
 
 
 
-app.post('user/:id/Projekt/:Projektid/kommentar', function (req, res) {
+app.post('user/:id/Projekt/:projektid/kommentar', function (req, res) {
     var newComment = req.body;
-    db.incr('user:'+req.params.id+'/Projekt:'+req.params.projektid+':kommentar', function (err, rep) {
+    db.incr('user:'+req.params.id+':Projekt:'+req.params.projektid+':kommentar', function (err, rep) {
         newComment.kommentarid = rep;
-        db.set('Kommentar:' + newComment.kommentarid, JSON.stringify(newComment), function (err, rep) {
+        db.set('kommentar:' + newComment.kommentarid, JSON.stringify(newComment), function (err, rep) {
             res.json(newComment);
         });
     });
