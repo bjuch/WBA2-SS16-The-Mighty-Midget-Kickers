@@ -293,10 +293,10 @@ app.get('/user/:id',function(req,res){
 
 app.post('user/:id/projekt/:projektid/kommentar',function(req,res){
     var newComment = req.body;
-             client.incr('comment', function(err,rep){
+            db.incr('comment', function(err,rep){
             newComment.id = rep;
         
-            client.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function(err,rep)
+            db.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function(err,rep)
             {
              res.json(newComment);      
                    });
@@ -332,7 +332,7 @@ app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
 
 app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
     client.existsts('user:'+req.params.id,function(err,rep){
-        comment.del('comment:'+req.params.id,function(err,rep){
+        db.del('/user/:id/projekt/:projektid/kommentar/'+req.params.id,function(err,rep){
             if(rep == 1)
                 {
                     res.status(200).type('text').send('Comment deleted')
