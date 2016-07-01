@@ -187,7 +187,7 @@ app.get('/user/:id/Strichliste', function (req, res) {
 			res.type('int').send(rep);
 		}
 		else{
-			res.status(404).type('text').send('User does not exist')
+			res.status(404).type('text').send('User does not exist');
 		}
 	});
 }); 
@@ -198,6 +198,8 @@ app.put('/user/:id/Strichliste', function (req, res) {
 		db.set('user/'+req.params.id +'Strichliste', '0');		
 	}else if (req == 0){
 		db.incr('user/'+req.params.id +'Strichliste');			
+	}else{
+		res.status(406).type('text').send('Only 0 or 1 accepted');
 	}	
 }); 
 
