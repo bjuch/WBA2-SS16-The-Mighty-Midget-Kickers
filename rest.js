@@ -18,26 +18,6 @@ console.log("Server listen on Port: " + 3001);
 
 
 
-var express = require("express");
-var ejs = require("ejs");
-var http = require("http");
-var rest = express();
-var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json();
-var fs = require("fs");
-
-var app = express();
-
-rest.use(function (req, res, next) {
-    console.log("Time: %d" + " Request-Pfad: " + req.path, Date.now());
-    next();
-});
-
-console.log("Server listen on Port: " + 3001);
-
-
-
-
 rest.get("/user/Projekt_get/", jsonParser, function (req, res) {
 
     fs.readFile("./Projekt.ejs", {
@@ -58,11 +38,11 @@ rest.get("/user/Projekt_get/", jsonParser, function (req, res) {
             }
             var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data", function (chunk) {
+                externalResponse.on("Projekt: ", function (chunk) {
 
                     var Projojektdata = JSON.parse(chunk);
 
-                    var html = ejs.render(filestring, Projojektdata);
+                    var html = ejs.render(filestring, Projektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
                     res.write(html);
@@ -99,7 +79,7 @@ rest.put("/user/Projekt_put/", jsonParser, function (req, res) {
 
                     var Projojektdata = JSON.parse(chunk);
 
-                    var html = ejs.render(filestring, Projojektdata);
+                    var html = ejs.render(filestring, Projektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
                     res.write(html);
@@ -136,7 +116,7 @@ rest.post("/user/Projekt_post/", jsonParser, function (req, res) {
 
                     var Projojektdata = JSON.parse(chunk);
 
-                    var html = ejs.render(filestring, Projojektdata);
+                    var html = ejs.render(filestring, Projektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
                     res.write(html);
@@ -172,7 +152,7 @@ rest.delete("/user/Projekt_delete/", jsonParser, function (req, res) {
 
                     var Projojektdata = JSON.parse(chunk);
 
-                    var html = ejs.render(filestring, Projojektdata);
+                    var html = ejs.render(filestring, Projektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
                     res.write(html);
