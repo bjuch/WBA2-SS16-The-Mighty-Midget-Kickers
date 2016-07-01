@@ -304,11 +304,16 @@ app.post('user/:id/projekt/:projektid/kommentar',function(req,res){
         });
 
 app.get('user/:id/projekt/:projektid/kommentar',function(req,res){
-    if(rep == 1)
-       {
-            client.hgetall('Alle Kommentare:').send(rep);    
-       }
-   }) ;
+	
+	db.get('user/:id/projekt/:projektid/kommentar/'+req.params.id, function(err, rep){
+		
+		if(rep){
+			res.type('json').send(rep);
+		}
+		else{
+			res.status(404).type('text').send('User does not exist')
+		}
+	});
 });
 
 
