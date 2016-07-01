@@ -9,7 +9,7 @@
     "express": "^4.13.4",
     "npm": "^2.15.5",
     "redis": "^2.6.2"
-    "require": "^2.4.20"
+    
   },  
   "devDependencies": {},
   "scripts": {
