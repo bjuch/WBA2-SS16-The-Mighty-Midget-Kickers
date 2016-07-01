@@ -23,12 +23,26 @@ app.post("/user/Projekt/", function (req, res) {
 
 
     var newProjekt = req.body;
+    var acceptedTypes = req.accepts(['json']);
 
     db.incr("user/id:Projekt", function (err, rep) {
         newProjekt.id = rep;
+
         db.set("Projekt: " + newProjekt.id, JSON.stringify(newProjekt), function (err, rep) {
-            res.json(newProjekt);
+
+            switch (acceptedTypes) {
+            case "json":
+
+
+                res.json(newProjekt);
+
+                break;
+
+            default:
+                res.status(406).type.end();
+            }
         });
+
     });
 
 
@@ -74,107 +88,102 @@ app.delete("/user/Projekt/:id", function (req, res) {
 
 
 app.get("/user/Projekt", function (req, res) {
-            db.keys("Projekt:*", function (err, rep) {
+    db.keys("Projekt:*", function (err, rep) {
 
-                    var Projekt = [];
-                if (rep.length == 0){
-                
-                    res.json(Projekt);
-                    return;
-                }
-                db.mget(rep, function (err, rep) {
+        var Projekt = [];
+        if (rep.length == 0) {
 
-                    rep.forEach(function (val) {
-                        Projekt.push(JSON.parse(val));
-                    });
+            res.json(Projekt);
+            return;
+        }
+        db.mget(rep, function (err, rep) {
 
-                    Projekt = Projekt.map(function (Projekt) {
-                        return {
-                            id: Projekt.id,
-                            titel: Projekt.titel
-                        };
-                    });
-                    res.json(Projekt);
-                });
+            rep.forEach(function (val) {
+                Projekt.push(JSON.parse(val));
             });
+
+            Projekt = Projekt.map(function (Projekt) {
+                return {
+                    Projekt: Projekt.id,
+                    Titel: Projekt.Titel
+                };
+            });
+            res.json(Projekt);
+        });
+    });
 });
 
 
-        app.get('user/Projekttest', function (req, res) {
+app.get('user/Projekttest', function (req, res) {
 
 
-            fs.readFile('Projekt.json', function (err, data) {
+    fs.readFile('Projekt.json', function (err, data) {
 
-                var obj = JSON.parse(data.toString())
-                var Tabelle = obj.Projekt;
-
-
-
-                var acceptedTypes = req.accepts(['json']);
-                switch (acceptedTypes) {
-                case "json":
-
-
-                    //  Tabelle.forEach(function(entry){
-
-                    res.status(200).json(Tabelle);
-                    break;
-
-                default:
-                    res.status(406).end();
-                }
-
-            });
-
-            //    });
+        var obj = JSON.parse(data.toString())
+        var Tabelle = obj.Projekt;
 
 
 
+        var acceptedTypes = req.accepts(['json']);
+        switch (acceptedTypes) {
+        case "json":
 
-        });
+
+            res.status(200).json(Tabelle);
+            break;
+
+        default:
+            res.status(406).end();
+        }
+
+    });
+
+
+
+});
 
 
 
 
-        app.post('/user/Projekttest', jsonParser, function (req, res) {
+app.post('/user/Projekttest', jsonParser, function (req, res) {
 
 
-            fs.readFile('Projekt.json', function (err, data) {
+    fs.readFile('Projekt.json', function (err, data) {
 
-                var obj = JSON.parse(data.toString())
-                var Tabelle = obj.Projekt;
-
-
-
-
-                Tabelle.push(req.body);
-                res.type('plain').send('Added!');
-
-
-            });
-
-        });
-
-
-
-        app.put('/user/Projekt', jsonParser, function (req, res) {
-
-
-            fs.readFile('Projekt.json', function (err, data) {
-
-                var obj = JSON.parse(data.toString())
-                var Tabelle = obj.Projekt;
+        var obj = JSON.parse(data.toString())
+        var Tabelle = obj.Projekt;
 
 
 
 
-                Tabelle.push(req.body);
-                res.type('plain').send('Added!');
+        Tabelle.push(req.body);
+        res.type('plain').send('Added!');
 
 
-            });
+    });
 
-        });
+});
+
+
+
+app.put('/user/Projekt', jsonParser, function (req, res) {
+
+
+    fs.readFile('Projekt.json', function (err, data) {
+
+        var obj = JSON.parse(data.toString())
+        var Tabelle = obj.Projekt;
+
+
+
+
+        Tabelle.push(req.body);
+        res.type('plain').send('Added!');
+
+
+    });
+
+});
 
 /*********************************************************************************************/
 
