@@ -298,6 +298,151 @@ app.get('/user/:id',function(req,res){
 	
 });
 
+
+/******************************************************************************************/
+
+//Kommentare
+
+
+
+app.get('/user/:id/projekt/:projektid/kommentar', function (req, res) {
+
+  fs.readFile("./Kommentare.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "user/:id/projekt/:projektid/kommentar",
+                method: "GET",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var externalRequest = http.request(options, function(externalResponse){
+                console.log("get Kommentare");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Kommentaredata = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, Kommentaredata);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+}); 
+
+app.post('/user/:id/projekt/:projektid/kommentar',function(req,res){
+	 fs.readFile("./Kommentar.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "user/:id/projekt/:projektid/kommentar",
+                method: "GET",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var Kommentare = http.request(options, function(externalResponse){
+                console.log("Connected");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Kommentaredata = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, Kommentare);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+	
+});
+
+app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
+ fs.readFile("./Kommentare.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "/user/:id/projekt/:projektid/kommentar/:erstellerid",
+                method: "GET",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var externalRequest = http.request(options, function(externalResponse){
+                console.log("Connected");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Kommentare = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, User);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+	
+});
+
+app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
+ fs.readFile("./Kommentare.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "/user/:id/projekt/:projektid/kommentar/:erstellerid",
+                method: "GET",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var externalRequest = http.request(options, function(externalResponse){
+                console.log("Connected");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Kommentare = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, Kommentare);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+	
+});
+
+
+
 /**********************************************************************/
 
 //Ende
