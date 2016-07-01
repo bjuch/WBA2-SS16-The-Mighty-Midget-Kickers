@@ -75,7 +75,7 @@ rest.put("/user/Projekt_put/", jsonParser, function (req, res) {
             }
             var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data", function (chunk) {
+                externalResponse.on("Projekt: ", function (chunk) {
 
                     var Projojektdata = JSON.parse(chunk);
 
@@ -112,7 +112,7 @@ rest.post("/user/Projekt_post/", jsonParser, function (req, res) {
             }
             var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data", function (chunk) {
+                externalResponse.on("Projekt: ", function (chunk) {
 
                     var Projojektdata = JSON.parse(chunk);
 
@@ -148,7 +148,7 @@ rest.delete("/user/Projekt_delete/", jsonParser, function (req, res) {
             }
             var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data", function (chunk) {
+                externalResponse.on("Projekt: ", function (chunk) {
 
                     var Projojektdata = JSON.parse(chunk);
 
