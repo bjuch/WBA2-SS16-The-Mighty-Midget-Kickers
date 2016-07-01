@@ -340,6 +340,37 @@ app.get('/user/Projekt/Kommentar/:kommentarid', function (req, res) {
     });
 });
 
+app.get("/user/Projekt/Kommentar", function (req, res) {
+    db.keys("Kommentar:*", function (err, rep) {
+
+        var Kommentar = [];
+        if (rep.length == 0) {
+
+            res.json(Kommentar);
+            return;
+        }
+        if (rep) {
+            db.mget(rep, function (err, rep) {
+
+                rep.forEach(function (val) {
+                    Kommentar.push(JSON.parse(val));
+                });
+
+                Kommentar = Kommentar.map(function (Kommentar) {
+                    return {
+                        kommentarid: Kommentar.kommentarid,
+                    };
+                });
+                res.json(Kommentar);
+            });
+
+        } else {
+            res.status(206).type("text").send("Die Kommentare wurden nicht gefunden")
+        }
+
+    });
+});
+
 
 app.put('/user/Projekt/Kommentar/:id', function (req, res) {
     db.exists('Kommentar:' + req.params.id, function (err, rep) {
