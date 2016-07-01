@@ -18,11 +18,11 @@ app.use(bodyParser.json());
 
 
 app.post("user/:id/Projekt/", function (req, res) {
-    db.exists('user/'+req.params.id,function(err,rep){
+    db.exists('user:'+req.params.id,function(err,rep){
         if(rep){
             var newProjekt = req.body;
     
-            db.incr('user/'+req.params.id+'/projektid:Projekt', function (err, rep) {
+            db.incr('user/'+req.params.id+'/Projekt', function (err, rep) {
                 newProjekt.projektid = rep;
                 db.set("Projekt: " + newProjekt.projektid, JSON.stringify(newProjekt), function (err, rep) {
                     res.json(newProjekt);
