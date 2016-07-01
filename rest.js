@@ -234,7 +234,7 @@ app.put('/user/:id/Strichliste', function (req, res) {
 //USER Teil
 
 app.get('/user',function(req,res){
- fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+ fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
         if (err){
             throw err;
         }else{
@@ -267,7 +267,7 @@ app.get('/user',function(req,res){
 });
 
 app.put('/user/:id',function(req,res){
- fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+ fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
         if (err){
             throw err;
         }else{
@@ -301,7 +301,7 @@ app.put('/user/:id',function(req,res){
 });
 
 app.post('/user',function(req,res){
-	 fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+	 fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
         if (err){
             throw err;
         }else{
@@ -335,7 +335,7 @@ app.post('/user',function(req,res){
 });
 
 app.delete('/user/:id',function(req,res){
- fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+ fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
         if (err){
             throw err;
         }else{
@@ -370,7 +370,7 @@ app.delete('/user/:id',function(req,res){
 
 app.get('/user/:id',function(req,res){
   
- fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+ fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
         if (err){
             throw err;
         }else{
