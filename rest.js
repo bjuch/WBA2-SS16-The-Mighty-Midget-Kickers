@@ -349,7 +349,7 @@ app.post('/user/:id/projekt/:projektid/kommentar',function(req,res){
                 host: "localhost",
                 port: 3000,
                 path: "user/:id/projekt/:projektid/kommentar",
-                method: "GET",
+                method: "POST",
                 headers: {
                     accept: "application/json"                
             }
@@ -383,7 +383,7 @@ app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id/projekt/:projektid/kommentar/:erstellerid",
-                method: "GET",
+                method: "PUT",
                 headers: {
                     accept: "application/json"                
             }
@@ -417,7 +417,7 @@ app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,re
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id/projekt/:projektid/kommentar/:erstellerid",
-                method: "GET",
+                method: "DELETE",
                 headers: {
                     accept: "application/json"                
             }
