@@ -1,4 +1,4 @@
-var express = require ("express");
+var express = require("express");
 var ejs = require("ejs");
 var http = require("http");
 var rest = express();
@@ -8,9 +8,9 @@ var fs = require("fs");
 
 var app = express();
 
-rest.use(function(req, res, next){
-console.log("Time: %d" + " Request-Pfad: " + req.path, Date.now());
-next();
+rest.use(function (req, res, next) {
+    console.log("Time: %d" + " Request-Pfad: " + req.path, Date.now());
+    next();
 });
 
 console.log("Server listen on Port: " + 3001);
@@ -18,28 +18,30 @@ console.log("Server listen on Port: " + 3001);
 
 
 
-rest.get("/user/Projekt/", jsonParser, function(req, res){
-   
-    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+rest.get("/user/Projekt_get/", jsonParser, function (req, res) {
+
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
-                path: "/user/Projekt",
+                path: "/user/Projekt/",
                 method: "GET",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Projojektdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Projojektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -53,28 +55,30 @@ rest.get("/user/Projekt/", jsonParser, function(req, res){
 });
 
 
-rest.put("/user/Projekt/", jsonParser, function(req, res){
-   
-    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+rest.put("/user/Projekt/", jsonParser, function (req, res) {
+
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/Projekt",
                 method: "PUT",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Projojektdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Projojektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -88,28 +92,30 @@ rest.put("/user/Projekt/", jsonParser, function(req, res){
 });
 
 
-rest.post("/user/Projekt/", jsonParser, function(req, res){
-   
-    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+rest.post("/user/Projekt/", jsonParser, function (req, res) {
+
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/Projekt",
                 method: "POST",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Projojektdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Projojektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -122,28 +128,30 @@ rest.post("/user/Projekt/", jsonParser, function(req, res){
     });
 });
 
-rest.delete("/user/Projekt/", jsonParser, function(req, res){
-   
-    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+rest.delete("/user/Projekt/", jsonParser, function (req, res) {
+
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/Projekt",
                 method: "DELETE",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Projojektdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Projojektdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -163,26 +171,28 @@ rest.delete("/user/Projekt/", jsonParser, function(req, res){
 
 app.get('/user/:id/Strichliste', function (req, res) {
 
-  fs.readFile("./Strichliste.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+    fs.readFile("./Strichliste.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id/Strichliste",
                 method: "GET",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("get Strichliste");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Strichlistdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Strichlistdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -193,30 +203,32 @@ app.get('/user/:id/Strichliste', function (req, res) {
             externalRequest.end();
         }
     });
-}); 
+});
 
 app.put('/user/:id/Strichliste', function (req, res) {
-	
-	fs.readFile("Strichlister.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+
+    fs.readFile("Strichlister.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id/Strichliste",
                 method: "PUT",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("verändere Strichliste");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Strichlistdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Strichlistdata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -227,33 +239,35 @@ app.put('/user/:id/Strichliste', function (req, res) {
             externalRequest.end();
         }
     });
-  }); 
+});
 
 /******************************************************************************************/
 
 //USER Teil
 
-app.get('/user',function(req,res){
- fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.get('/user', function (req, res) {
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user",
                 method: "GET",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var User = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, User);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -266,27 +280,29 @@ app.get('/user',function(req,res){
     });
 });
 
-app.put('/user/:id',function(req,res){
- fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.put('/user/:id', function (req, res) {
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id",
                 method: "PUT",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var User = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, User);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -297,30 +313,32 @@ app.put('/user/:id',function(req,res){
             externalRequest.end();
         }
     });
-	
+
 });
 
-app.post('/user',function(req,res){
-	 fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.post('/user', function (req, res) {
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user",
                 method: "POST",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var User = http.request(options, function(externalResponse){
+            var User = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Projojektdata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, User);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -331,30 +349,32 @@ app.post('/user',function(req,res){
             externalRequest.end();
         }
     });
-	
+
 });
 
-app.delete('/user/:id',function(req,res){
- fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.delete('/user/:id', function (req, res) {
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id",
                 method: "DELETE",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var User = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, User);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -365,31 +385,33 @@ app.delete('/user/:id',function(req,res){
             externalRequest.end();
         }
     });
-	
+
 });
 
-app.get('/user/:id',function(req,res){
-  
- fs.readFile("./User.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.get('/user/:id', function (req, res) {
+
+    fs.readFile("./Projekt.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id",
                 method: "GET",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var User = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, User);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -400,7 +422,7 @@ app.get('/user/:id',function(req,res){
             externalRequest.end();
         }
     });
-	
+
 });
 
 
@@ -412,26 +434,28 @@ app.get('/user/:id',function(req,res){
 
 app.get('/user/:id/projekt/:projektid/kommentar', function (req, res) {
 
-  fs.readFile("./Kommentare.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+    fs.readFile("./Kommentare.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "user/:id/projekt/:projektid/kommentar",
                 method: "GET",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("get Kommentare");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Kommentaredata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Kommentaredata);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -442,29 +466,31 @@ app.get('/user/:id/projekt/:projektid/kommentar', function (req, res) {
             externalRequest.end();
         }
     });
-}); 
+});
 
-app.post('/user/:id/projekt/:projektid/kommentar',function(req,res){
-	 fs.readFile("./Kommentar.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.post('/user/:id/projekt/:projektid/kommentar', function (req, res) {
+    fs.readFile("./Kommentar.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "user/:id/projekt/:projektid/kommentar",
                 method: "POST",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var Kommentare = http.request(options, function(externalResponse){
+            var Kommentare = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Kommentaredata = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Kommentare);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -475,30 +501,32 @@ app.post('/user/:id/projekt/:projektid/kommentar',function(req,res){
             externalRequest.end();
         }
     });
-	
+
 });
 
-app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
- fs.readFile("./Kommentare.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req, res) {
+    fs.readFile("./Kommentare.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id/projekt/:projektid/kommentar/:erstellerid",
                 method: "PUT",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Kommentare = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, User);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -509,30 +537,32 @@ app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
             externalRequest.end();
         }
     });
-	
+
 });
 
-app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
- fs.readFile("./Kommentare.ejs", {encoding: "utf-8"},function(err, filestring){
-        if (err){
+app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req, res) {
+    fs.readFile("./Kommentare.ejs", {
+        encoding: "utf-8"
+    }, function (err, filestring) {
+        if (err) {
             throw err;
-        }else{
-            
+        } else {
+
             var options = {
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id/projekt/:projektid/kommentar/:erstellerid",
                 method: "DELETE",
                 headers: {
-                    accept: "application/json"                
+                    accept: "application/json"
+                }
             }
-            }
-            var externalRequest = http.request(options, function(externalResponse){
+            var externalRequest = http.request(options, function (externalResponse) {
                 console.log("Connected");
-                externalResponse.on("data",function(chunk){
-                    
+                externalResponse.on("data", function (chunk) {
+
                     var Kommentare = JSON.parse(chunk);
-                    
+
                     var html = ejs.render(filestring, Kommentare);
                     res.setHeader("content-type", "text/html");
                     res.writeHead(200);
@@ -543,7 +573,7 @@ app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,re
             externalRequest.end();
         }
     });
-	
+
 });
 
 
