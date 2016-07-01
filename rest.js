@@ -52,6 +52,111 @@ rest.get("/user/Projekt/", jsonParser, function(req, res){
     });
 });
 
+
+rest.put("/user/Projekt/", jsonParser, function(req, res){
+   
+    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "/user/Projekt",
+                method: "PUT",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var externalRequest = http.request(options, function(externalResponse){
+                console.log("Connected");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Projojektdata = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, Projojektdata);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+});
+
+
+rest.POST("/user/Projekt/", jsonParser, function(req, res){
+   
+    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "/user/Projekt",
+                method: "POST",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var externalRequest = http.request(options, function(externalResponse){
+                console.log("Connected");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Projojektdata = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, Projojektdata);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+});
+
+rest.delete("/user/Projekt/", jsonParser, function(req, res){
+   
+    fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
+        if (err){
+            throw err;
+        }else{
+            
+            var options = {
+                host: "localhost",
+                port: 3000,
+                path: "/user/Projekt",
+                method: "DELETE",
+                headers: {
+                    accept: "application/json"                
+            }
+            }
+            var externalRequest = http.request(options, function(externalResponse){
+                console.log("Connected");
+                externalResponse.on("data",function(chunk){
+                    
+                    var Projojektdata = JSON.parse(chunk);
+                    
+                    var html = ejs.render(filestring, Projojektdata);
+                    res.setHeader("content-type", "text/html");
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+            externalRequest.end();
+        }
+    });
+});
+
+
 /*******************************************************************************************************/
 
 // Strichliste 
