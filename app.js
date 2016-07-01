@@ -318,13 +318,13 @@ app.get('user/:id/projekt/:projektid/kommentar',function(req,res){
 
 
 app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
-    client.exists('user:'+req.params.id, function(err,rep){
+    db.exists('user:'+req.params.id, function(err,rep){
             if(rep == 1)
                 {
                     var updatedComment = req.body;
                     updatedComment.id = req.params.id;
                     
-                    client.set('user:'+req.params.id, JSON.stringify(updatedComment),function(err,rep){
+                    db.set('user:'+req.params.id, JSON.stringify(updatedComment),function(err,rep){
                         res.json(updatedComment);
                     });
                 }
@@ -336,7 +336,7 @@ app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
     });
 
 app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
-    client.existsts('user:'+req.params.id,function(err,rep){
+    db.existsts('user:'+req.params.id,function(err,rep){
         db.del('/user/:id/projekt/:projektid/kommentar/'+req.params.id,function(err,rep){
             if(rep == 1)
                 {
