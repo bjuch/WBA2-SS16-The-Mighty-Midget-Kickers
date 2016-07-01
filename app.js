@@ -293,62 +293,66 @@ app.get('/user/:id',function(req,res){
 
 //Kommentare
 
-app.post('user/:id/projekt/:projektid/kommentar',function(req,res){
-    var newComment = req.body;
-            db.incr('comment', function(err,rep){
+    "use strict";
+    
+    app.post('user/:id/projekt/:projektid/kommentar', function (req, res) {
+        var newComment = req.body;
+        db.incr('comment', function (err, rep) {
             newComment.id = rep;
         
-            db.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function(err,rep)
-            {
-             res.json(newComment);      
-                   });
-             });
-        });
-
-app.get('user/:id/projekt/:projektid/kommentar',function(req,res){
-	
-	db.get('user/:id/projekt/:projektid/kommentar/'+req.params.id, function(err, rep){
-		
-		if(rep){
-			res.type('json').send(rep);
-		}
-		else{
-			res.status(404).type('text').send('No comments available')
-		}
-	});
-});
-
-
-app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
-    db.exists('user:'+req.params.id, function(err,rep){
-            if(rep == 1)
-                {
-                    var updatedComment = req.body;
-                    updatedComment.id = req.params.id;
-                    
-                    db.set('user:'+req.params.id, JSON.stringify(updatedComment),function(err,rep){
-                        res.json(updatedComment);
-                    });
-                }
-            else
-                {
-                    res.status(404).type('text').send('Comment not found');
-                }
+            db.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function (err, rep) {
+                res.json(newComment);
+            });
         });
     });
 
-app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid',function(req,res){
-    db.existsts('user:'+req.params.id,function(err,rep){
-        db.del('/user/:id/projekt/:projektid/kommentar/'+req.params.id,function(err,rep){
-            if(rep == 1)
-                {
-                    res.status(200).type('text').send('Comment deleted')
-                }
-            else {
+    app.get('user/:id/projekt/:projektid/kommentar', function (req, res) {
+	
+	    db.get('user/:id/projekt/:projektid/kommentar/' + req.params.id, function (err, rep) {
+		
+		    if (rep) {
+			    res.type('json').send(rep);
+		    } else {
+			    res.status(404).type('text').send('No comments available');
+		    }
+	    });
+    });
+
+
+    app.put('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req, res) {
+        db.exists('user:' + req.params.id, function (err, rep) {
+            if (rep == 1) {
+                var updatedComment = req.body;
+                updatedComment.id = req.params.id;
+                    
+                db.set('user:' + req.params.id, JSON.stringify(updatedComment), function (err, rep) {
+                    res.json(updatedComment);
+                });
+            } else {
                 res.status(404).type('text').send('Comment not found');
             }
         });
     });
+
+    app.delete('/user/:id/projekt/:projektid/kommentar/:erstellerid', function (req, res) {
+        db.existsts('user:' + req.params.id, function (err, rep) {
+            db.del('/user/:id/projekt/:projektid/kommentar/' + req.params.id, function (err, rep) {
+                if (rep == 1) {
+                    res.status(200).type('text').send('Comment deleted');
+                } else {
+                    res.status(404).type('text').send('Comment not found');
+                }
+            });
+        });
+ 
+/*******************************************************************/
+
+ 
+//ENDE
+
+        app.listen(3000, function () {
+            console.log("Server listens on Port 3000");
+        })
     
     
 /*******************************************************************/
