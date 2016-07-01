@@ -296,20 +296,19 @@ app.get('/user/:id', function (req, res) {
 
 
 
-app.post('user/Projekt/Kommentar', function (req, res) {
+app.post('/user/Projekt/Kommentar', function (req, res) {
     var newComment = req.body;
-    db.incr('user/Projekt/id:Kommentar', function (err, rep) {
-        newComment.id = rep;
-
-        db.set('Kommentar:' + newComment.id, JSON.stringify(newComment), function (err, rep) {
+    db.incr('user/Projekt/kommentarid:Kommentar', function (err, rep) {
+        newComment.kommentarid = rep;
+        db.set('Kommentar:' + newComment.kommentarid, JSON.stringify(newComment), function (err, rep) {
             res.json(newComment);
         });
     });
 });
 
-app.get('user/:id/projekt/:projektid/kommentar', function (req, res) {
+app.get('/user/Projekt/Kommentar', function (req, res) {
 
-    db.get('user/:id/projekt/:projektid/kommentar/' + req.params.id, function (err, rep) {
+    db.get('user:'+req.params.id+':projekt:'+req.params.projektid+':kommentar:' + req.params.kommentarid, function (err, rep) {
 
         if (rep) {
             res.type('json').send(rep);
