@@ -10,7 +10,7 @@
     "npm": "^2.15.5",
     "redis": "^2.6.2"
     "require": "^2.4.20"
-  }, 
+  },  
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
