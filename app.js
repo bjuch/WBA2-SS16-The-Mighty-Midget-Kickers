@@ -210,7 +210,7 @@ app.put('/user/:id/Strichliste', function (req, res) {
 app.get('/user', function (req, res) {
     db.keys('user:*', function (err, rep) {
 
-        var users = [];
+        var user = [];
 
         if (rep.length == 0) {
             res.json(user);
