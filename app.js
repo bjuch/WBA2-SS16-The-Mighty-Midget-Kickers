@@ -353,13 +353,3 @@ app.get('/user/:id',function(req,res){
         app.listen(3000, function () {
             console.log("Server listens on Port 3000");
         })
-    
-    
-/*******************************************************************/
-
- 
-//ENDE
-
-        app.listen(3000, function(){
-            console.log("Server listens on Port 3000");
-        })
