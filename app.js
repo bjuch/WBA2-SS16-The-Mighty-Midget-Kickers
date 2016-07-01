@@ -201,26 +201,31 @@ app.put('/user/Projekt', jsonParser, function (req, res) {
 
 // STRICHLISTEN TEIL
 
-app.get('/user/:id/Strichliste', function (req, res) {
-    db.get('user:' + req.params.id + '/Strichliste', function (err, rep) {
+app.get('/user/Strichliste', function (req, res) {
+    db.get('strich', function (err, rep) {
 
         if (rep) {
             res.type('int').send(rep);
         } else {
-            res.status(404).type('text').send('User does not exist');
+            res.status(404).type('text').send('Strichliste does not exist');
         }
     });
 });
 
-app.put('/user/:id/Strichliste', function (req, res) {
+app.put('/user/Strichliste', function (req, res) {
 
     if (req == 1) {
-        db.set('user/' + req.params.id + 'Strichliste', '0');
+        db.set('strich:', '0');
     } else if (req == 0) {
-        db.incr('user/' + req.params.id + 'Strichliste');
+        db.incr('strich:');
     } else {
         res.status(406).type('text').send('Only 0 or 1 accepted');
     }
+});
+
+app.post('/user/Strichliste', function (req, res) {
+    var newUser = req.body;
+    db.incr('strichliste:strich');
 });
 
 /*********************************************************************************************/
