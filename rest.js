@@ -18,6 +18,26 @@ console.log("Server listen on Port: " + 3001);
 
 
 
+var express = require("express");
+var ejs = require("ejs");
+var http = require("http");
+var rest = express();
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
+var fs = require("fs");
+
+var app = express();
+
+rest.use(function (req, res, next) {
+    console.log("Time: %d" + " Request-Pfad: " + req.path, Date.now());
+    next();
+});
+
+console.log("Server listen on Port: " + 3001);
+
+
+
+
 rest.get("/user/Projekt_get/", jsonParser, function (req, res) {
 
     fs.readFile("./Projekt.ejs", {
@@ -55,7 +75,7 @@ rest.get("/user/Projekt_get/", jsonParser, function (req, res) {
 });
 
 
-rest.put("/user/Projekt/", jsonParser, function (req, res) {
+rest.put("/user/Projekt_put/", jsonParser, function (req, res) {
 
     fs.readFile("./Projekt.ejs", {
         encoding: "utf-8"
@@ -92,7 +112,7 @@ rest.put("/user/Projekt/", jsonParser, function (req, res) {
 });
 
 
-rest.post("/user/Projekt/", jsonParser, function (req, res) {
+rest.post("/user/Projekt_post/", jsonParser, function (req, res) {
 
     fs.readFile("./Projekt.ejs", {
         encoding: "utf-8"
@@ -128,7 +148,7 @@ rest.post("/user/Projekt/", jsonParser, function (req, res) {
     });
 });
 
-rest.delete("/user/Projekt/", jsonParser, function (req, res) {
+rest.delete("/user/Projekt_delete/", jsonParser, function (req, res) {
 
     fs.readFile("./Projekt.ejs", {
         encoding: "utf-8"
