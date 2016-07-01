@@ -171,7 +171,7 @@ app.put('/user/:id',function(req,res){
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id",
-                method: "GET",
+                method: "PUT",
                 headers: {
                     accept: "application/json"                
             }
@@ -205,7 +205,7 @@ app.post('/user',function(req,res){
                 host: "localhost",
                 port: 3000,
                 path: "/user",
-                method: "GET",
+                method: "POST",
                 headers: {
                     accept: "application/json"                
             }
@@ -239,7 +239,7 @@ app.delete('/user/:id',function(req,res){
                 host: "localhost",
                 port: 3000,
                 path: "/user/:id",
-                method: "GET",
+                method: "DELETE",
                 headers: {
                     accept: "application/json"                
             }
