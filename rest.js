@@ -88,7 +88,7 @@ rest.put("/user/Projekt/", jsonParser, function(req, res){
 });
 
 
-rest.POST("/user/Projekt/", jsonParser, function(req, res){
+rest.post("/user/Projekt/", jsonParser, function(req, res){
    
     fs.readFile("./Projekt.ejs", {encoding: "utf-8"},function(err, filestring){
         if (err){
