@@ -1,38 +1,3 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json();
-var fs = require("fs");
-var redis = require('redis');
-var ejs = require("ejs");
-var http = require("http");
-
-var rest = express();
-
-var app = express();
-
-
-var db = redis.createClient();
-app.use(bodyParser.json());
-
-
-
-
-app.post("/user/Projekt/", function (req, res) {
-
-
-
-
-    var newProjekt = req.body;
-
-    db.incr("user/id:Projekt", function (err, rep) {
-        newProjekt.id = rep;
-        db.set("Projekt: " + newProjekt.id, JSON.stringify(newProjekt), function (err, rep) {
-            res.json(newProjekt);
-        });
-    });
-
-
-});
 
 var express = require('express');
 var bodyParser = require('body-parser');
